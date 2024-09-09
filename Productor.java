@@ -32,7 +32,7 @@ public class Productor extends Thread {
     @Override
     public void run(){
         producir();
-        System.out.println("\nProductor "+this.id+" acabó.");
+        System.out.println("\nProductor "+this.id+" acabó.\n");
     }
 
        

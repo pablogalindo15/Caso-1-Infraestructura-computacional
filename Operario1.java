@@ -18,7 +18,7 @@ public class Operario1 extends Thread{
             }
             fabrica.cinta.PonerEnCinta(producto);
 
-            System.out.println("Operario 1 movio producto "+producto+" a la cinta\n");
+            System.out.println("Operario 1 movio producto "+producto+" a la cintax");
 
             if (producto == "FIN_A" || producto == "FIN_B"){
                 termino++;
@@ -28,7 +28,7 @@ public class Operario1 extends Thread{
     }
     public void run(){
         moverACinta();
-        System.out.println("\nOperario 1 acabo");
+        System.out.println("\nOperario 1 acabo\n");
     }
        
 

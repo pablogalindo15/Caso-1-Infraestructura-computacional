@@ -2,64 +2,46 @@
 import java.util.ArrayList;
 
 public class DepositoDistribucion {
-    ArrayList<String> productos = new ArrayList<String>();
-    int capacidad;
+    public ArrayList<String> productos = new ArrayList<String>();
+    private int capacidad;
 
-    public DepositoDistribucion(int capacidad){
+    public DepositoDistribucion(int capacidad) {
         this.capacidad = capacidad;
     }
 
-    public synchronized void almacenarProducto(String producto){
+    public synchronized void almacenarProducto(String producto) {
         productos.add(producto);
         notifyAll();
     }
 
-    public synchronized boolean sacarProducto(String id){
-        boolean termino = false;
-        boolean found=false;
-        while(productos.size()==0){
-            try{
+    public synchronized boolean sacarProducto(String id) {
+        while (productos.isEmpty()) {
+            try {
                 wait();
-            }
-            catch(InterruptedException e){
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
             }
         }
 
-        for(int i = 0; i < productos.size() && !found; i++){
+        for (int i = 0; i < productos.size(); i++) {
             String producto = productos.get(i);
-
-        if(id == "Azul" && (producto == "A")){
-            productos.remove(0);
-            System.out.println("Distribuidor "+id+" distribuyó un producto de tipo "+producto);
-            found=true;
-        }
-        else if(id == "Naranja" && (producto == "B")){
-            productos.remove(0);
-            System.out.println("Distribuidor "+id+" distribuyó un producto de tipo "+producto);
-            found=true;
-
-        }
-        else if(id == "Azul" && (producto == "FIN_A")){
-            productos.remove(0);
-            System.out.println("Distribuidor "+id+" distribuyó un producto de tipo "+producto);
-            termino=true;
-            found=true;
-        }
-        else if(id == "Naranja" && (producto == "FIN_B")){
-            productos.remove(0);
-            System.out.println("Distribuidor "+id+" distribuyó un producto de tipo "+producto);
-            termino=true;
-            found=true;
+            if (esProductoValido(id, producto)) {
+                productos.remove(i);
+                System.out.println("Distribuidor " + id + " distribuyó un producto de tipo " + producto);
+                return producto.startsWith("FIN_");
             }
         }
-        return(termino);
+
+        return false;
     }
 
-    public boolean lleno(){
-        return(productos.size()>=capacidad);
+    private boolean esProductoValido(String id, String producto) {
+        return (id.equals("Azul") && (producto.equals("A") || producto.equals("FIN_A"))) ||
+               (id.equals("Naranja") && (producto.equals("B") || producto.equals("FIN_B")));
     }
 
-
-
+    public synchronized boolean lleno() {
+        return productos.size() >= capacidad;
+    }
 }

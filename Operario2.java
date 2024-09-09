@@ -18,7 +18,7 @@ public class Operario2 extends Thread{
                 Thread.yield();
             }
             fabrica.depositoDistribucion.almacenarProducto(producto);
-            System.out.println("Operario 2 movio producto "+producto+" al depDIST\n");
+            System.out.println("Operario 2 movio producto "+producto+" al depDIST");
 
             if (producto == "FIN_A" || producto== "FIN_B"){
                 termino++;
@@ -27,8 +27,9 @@ public class Operario2 extends Thread{
     }
     public void run(){
         moverADeposito();
-        System.out.println("\nOperario 2 termino");
+        System.out.println("\nOperario 2 termino\n");
     }
+                        
 }
        
 
