@@ -19,13 +19,15 @@ public class DepositoProduccion {
             }
         }
         productos.add(producto);
-        System.out.println("Productor "+idProductor+" produjo un producto de tipo "+producto);
+        System.out.println("Se almaceno un producto " + producto);
+        //System.out.println("Productor "+idProductor+" produjo un producto de tipo "+producto);
     }
 
     public synchronized String sacarProducto(){
         String producto = productos.get(0);
         productos.remove(0);
-        notifyAll();
+        System.out.println("Operario 1 retiro producto "+ producto);
+        notify();
         return producto;
 
     }

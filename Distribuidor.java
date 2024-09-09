@@ -16,7 +16,7 @@ public class Distribuidor extends Thread {
     @Override
     public void run(){
         distribuir();
-        System.out.println("\nDistribuidor "+this.id+" acabó.\n");
+        //System.out.println("\nDistribuidor "+this.id+" acabó.\n");
     }
 
        

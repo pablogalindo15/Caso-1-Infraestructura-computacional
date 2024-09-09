@@ -29,6 +29,9 @@ public class DepositoDistribucion {
             if (esProductoValido(id, producto)) {
                 productos.remove(i);
                 System.out.println("Distribuidor " + id + " distribuyó un producto de tipo " + producto);
+                if(producto.startsWith("FIN_")){
+                    System.out.println("Distribuidor " + producto.substring(4)+" acabó.\n");
+                }
                 return producto.startsWith("FIN_");
             }
         }

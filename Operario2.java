@@ -14,6 +14,7 @@ public class Operario2 extends Thread{
                 Thread.yield();
             }
             String producto = fabrica.cinta.SacarDeCinta();
+            System.out.println("Operario 2 retiro producto "+producto+" de la cinta");
             while(fabrica.depositoDistribucion.lleno()){
                 Thread.yield();
             }
