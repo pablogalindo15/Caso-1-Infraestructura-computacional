@@ -3,11 +3,14 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class Fabrica {
-    int capacidadDepositoProduccion;
-    int capacidadDepositoDistribuicion;
-    DepositoProduccion depositoProduccion;
-    Cinta cinta;
-    DepositoDistribucion depositoDistribucion;
+    public int capacidadDepositoProduccion;
+    public int capacidadDepositoDistribuicion;
+    public DepositoProduccion depositoProduccion;
+    public Cinta cinta;
+    public DepositoDistribucion depositoDistribucion;
+    static int productosProducidos = 0;
+    static int productosDistribuidos = 0;   
+    static int productosPasadosPorCinta = 0;
 
     public Fabrica(int capacidadDepositoProduccion, int capacidadDepositoDistribuicion){
 
@@ -17,10 +20,21 @@ public class Fabrica {
         this.depositoDistribucion = new DepositoDistribucion(capacidadDepositoDistribuicion);
     }
 
+    public static synchronized void sumaProductos(){
+        productosProducidos++;
+    }
+
+    public static synchronized void sumaProductosDistribuidos(){
+        productosDistribuidos++;
+    }
+
+    public static synchronized void sumaProductosPasadosPorCinta(){
+        productosPasadosPorCinta++;
+    }
     public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException  {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("****** Bienvenido a la Fabrica de Productos ******");
+        System.out.println("\n*********** Bienvenido a la Fabrica de Productos ***********");
 
         System.out.println("\nIngrese el numero de Productos: ");
         int cantidadProductos = Integer.parseInt(br.readLine());
@@ -69,11 +83,17 @@ public class Fabrica {
         distribuidorB.join();
         distribuidorB2.join();
 
+        System.out.println("**************************************************************");
+        System.out.println("\nSe produjeron un total de "+productosProducidos+" productos\nIncluyendo los Productos de tipo FIN.");
+        System.out.println("\nSe distribuyeron un total de "+productosDistribuidos+" productos.");
+        System.out.println("\nSe pasaron por la cinta un total de "+productosPasadosPorCinta+" productos.");
 
-        System.out.println("\nTamanio Deposito produccion: "+fabrica.depositoProduccion.productos.size());
-        System.out.println("Tamanio Deposito produccion: "+fabrica.depositoDistribucion.productos.size());
-        System.out.println("Tamanio Cinta: "+fabrica.cinta.productos.size());
-        System.out.println("\nFINAL PROGRAMA");
+
+        System.out.println("\nTamanio final Deposito produccion: "+fabrica.depositoProduccion.productos.size());
+        System.out.println("Tamanio final Deposito distribuicion: "+fabrica.depositoDistribucion.productos.size());
+        System.out.println("Tamanio final Cinta: "+fabrica.cinta.productos.size());
+        System.out.println("\n**************************************************************");
+        System.out.println("\nFINAL PROGRAMA\n");
 
         
 

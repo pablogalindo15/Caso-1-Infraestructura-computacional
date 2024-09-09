@@ -15,23 +15,28 @@ public class Productor extends Thread {
                 System.out.println("Productor "+this.id+" produjo un producto de tipo A");
                 this.fabrica.depositoProduccion.almacenarProducto("A",id);
                 numProductos--;
+                Fabrica.sumaProductos();
             }
             else if(this.id == "Naranja"){
                 System.out.println("Productor "+this.id+" produjo un producto de tipo B");
                 this.fabrica.depositoProduccion.almacenarProducto("B", id);
                 numProductos--;
+                Fabrica.sumaProductos();
             }
         }
         if(numProductos==1){
             if(id == "Azul" ){
                 System.out.println("Productor "+this.id+" produjo un producto de tipo FIN_A");
                 this.fabrica.depositoProduccion.almacenarProducto("FIN_A", id);
+                Fabrica.sumaProductos();
             }
             else if(id == "Naranja"){
                 System.out.println("Productor "+this.id+" produjo un producto de tipo FIN_B");
                 this.fabrica.depositoProduccion.almacenarProducto("FIN_B", id);
+                Fabrica.sumaProductos();
                 }
             }
+            
     }
     @Override
     public void run(){
